@@ -1,0 +1,83 @@
+#include<iostream>
+#include<gmp.h>
+
+using namespace std;
+int main()
+{
+mpz_t p,g,a,b,A,B,temp,i,one,zero,Aresult,Bresult;
+mpz_init(p);
+mpz_init(g);
+mpz_init(a);
+mpz_init(b);
+mpz_init(A);
+mpz_init(B);
+mpz_init(i);
+mpz_init(temp);
+mpz_init(one);
+mpz_init(zero);
+mpz_init(Aresult);
+mpz_init(Bresult);
+//mpz_array_init(arr[0],2000,8);
+mpz_set_ui(i,1);
+mpz_set_ui(one,1);
+mpz_set_ui(zero,0);
+gmp_randstate_t state; 
+gmp_randinit_default(state);
+mpz_urandomb(temp,state,8);
+//printf("temp is %Zd\n",temp);
+mpz_nextprime(p,temp);
+//mpz_set_ui(p,5); 
+gmp_printf("prime  p is %Zd\n",p);
+mpz_urandomb(g,state,8);
+//mpz_set_ui(g,2);
+mpz_t count,tmp;
+mpz_init(count);
+mpz_init(tmp);
+mpz_set(count,zero);
+mpz_sub(tmp,p,one);
+//int size=200;
+//mpz_t q[200];
+//int val;
+//for(int l=0;l<size;l++)
+{
+//mpz_init_set_str(q[l],"0",10);
+}
+/*val=mpz_get_ui(p);
+printf("%d\n",val);*/
+while(1)
+{
+//printf("hey\n");
+mpz_set(count,zero);
+mpz_set(i,one);
+mpz_set(temp,g);
+while(mpz_cmp(temp,one)!=0)
+{
+//printf("hey\n");
+mpz_powm(temp,g,i,p);
+//val=mpz_get_ui(temp);
+mpz_add(i,i,one);
+mpz_add(count,count,one);
+}
+//printf("heyya\n");
+if(mpz_cmp(count,tmp)==0)
+{
+//printf("heya\n");
+gmp_printf("the generator is %Zd\n",g);
+break;
+}
+else
+mpz_add(g,g,one);
+}
+mpz_urandomb(a,state,8);//secret key of alice
+gmp_printf("secret key of alice %Zd\n",a);
+mpz_powm(A,g,a,p);
+//gmp_printf("%Zd\n",A);
+mpz_urandomb(b,state,8);
+gmp_printf("secret key of bob %Zd\n",b);
+mpz_powm(B,g,b,p);
+mpz_powm(Aresult,B,a,p);
+//printf("hello\n");
+gmp_printf("Alice key %Zd\n",Aresult);
+mpz_powm(Bresult,A,b,p);
+gmp_printf("Bob key %Zd\n",Bresult);
+}

@@ -1,0 +1,2 @@
+A combination of local socket and the socket at the remote system is also known a ‘Four tuple’ or ’4-tuple’. 
+Each connection between two processes running at different systems can be uniquely identified through their 4-tuple.

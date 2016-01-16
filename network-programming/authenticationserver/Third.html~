@@ -1,0 +1,39 @@
+<html>
+    <head>
+	     <title>First Page </title>
+	</head>
+	<body background="a.jpg" text="white">
+             <script type='text/javascript'>
+              var passarray=[1,2,0,0,2,2,1,1];
+              var ind=0;
+	      document.writeln('<h1 align="center"> Authentication required </h1><hr><img OnClick="clicks(event)" src="L.jpg" width="300" height="300" border="2"  bordercolor="yellow" align="center"><br><br>  <marquee scrollamount="5" loop="20" behavior="alternate"	 width="100%" direction="right"> <h2> Enter the pattern on image</h2> </marquee>')
+           function clicks(event)
+           {
+             pos_x=parseInt(event.offsetY/100)
+             pos_y=parseInt(event.offsetX/100)
+             
+             if(passarray[ind]!=pos_x||passarray[ind+1]!=pos_y)
+              {
+                alert("Wrong password try again!!"); ind=0;
+              }
+              else
+               {
+                 ind+=2; if(ind==8) alert("Authentication succesfull!!");
+               }
+           }
+        </script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

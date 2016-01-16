@@ -1,0 +1,85 @@
+//Normal Hashing Program using Linear Probing
+
+#include<iostream.h>
+#include<stdio.h>
+#include<conio.h>
+class hashing
+{
+private:
+	int arr[10],hashval;
+public:
+	hashing()
+	{
+		for(int i=0;i<10;i++)
+		{
+			arr[i]=NULL;
+		}
+	}
+	void add(int n);
+	void display();
+};
+void hashing::add(int n)
+{
+	cout<<endl;
+	cout<<endl;
+	int x,y=1;
+	x=n%10;
+	if(arr[x]==NULL)
+	{
+		arr[x]=n;
+	}
+	else
+	{
+		while(y!=0)
+		{
+			x++;
+			if(x==10)
+			{
+				x=0;
+			}
+			if(arr[x]==NULL)
+			{
+				arr[x]=n;
+				y=0;
+			}
+		}
+	}
+}
+void hashing::display()
+{
+	cout<<endl;
+	cout<<endl;
+	cout<<"THE ELEMENTS OF THE ARRAY ARE"<<endl;
+	cout<<endl;
+	cout<<endl;
+	for(int i=0;i<10;i++)
+	{
+		if(arr[i]==NULL)
+			arr[i]=0;
+		cout<<i<<" Element: "<<arr[i]<<endl;
+	}
+}
+int main()
+{       clrscr();
+	hashing h;
+	int x,y;
+	cout<<endl;
+	cout<<"Enter the Number of elements you want to enter: ";
+	cin>>y;
+	cout<<endl;
+	cout<<endl;
+	for(int i=0;i<y;i++)
+	{
+		cout<<"Enter the Value of "<<i+1<<" element: ";
+		cin>>x;
+		cout<<endl;
+		h.add(x);
+	}
+	cout<<endl;
+	h.display();
+	cout<<endl;
+	cout<<endl;
+	getch();
+	return 0;
+}
+

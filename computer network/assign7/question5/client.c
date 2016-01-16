@@ -1,0 +1,50 @@
+#include<sys/socket.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<netdb.h>
+#include<netinet/in.h>
+#include<string.h>
+#include<errno.h>
+
+int main()
+{
+
+char buf[100];
+
+int sfd;
+sfd=socket(AF_INET,SOCK_STREAM,0);
+if(sfd==-1)
+{printf("socket error\n");exit(1);}
+
+struct sockaddr_in client;
+
+bzero((char*)&client,sizeof(client));
+client.sin_family=AF_INET;
+client.sin_addr.s_addr=inet_addr("127.0.0.1");
+client.sin_port=htons(2500);
+
+if(connect(sfd,(struct sockaddr *)&client,sizeof(client))==-1)
+{perror("hehe");exit(1);}
+
+memset(buf,0,100);
+printf("give ip and port of special server\n");
+gets(buf);
+
+if(send(sfd,buf,100,0)==-1)
+{perror("send error");exit(1);}
+
+while(1)
+{
+memset(buf,0,100);
+recv(sfd,buf,100,0);
+printf("%s\n",buf);
+memset(buf,0,100);
+printf("send\n");
+gets(buf);
+send(sfd,buf,100,0);
+
+}
+return 0;
+}

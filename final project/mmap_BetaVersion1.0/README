@@ -1,0 +1,24 @@
+Procedure: 
+1> we are using mmap  to  take chunk of data from file and storing it in bufferA and bufferB
+2> we do this process till block of row time
+3> then we call open mp on stored data and perform matrix multiplication
+4> data is stored back to file
+
+
+
+
+
+
+
+Instructions To Run Program:
+1>we have to give Total row ,chunk size , block of row and no of thread as input
+2> Total Row should be multiple of 2
+3> chunk size should be multiple of 2 
+4> block of row should be factor of Total Row
+5> no of thread should be1,2,4,8,......etc...
+
+
+output:
+1> Gflops for floating point operation
+2> time taken to multiply one block
+4> Total time taken

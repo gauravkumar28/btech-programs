@@ -1,0 +1,54 @@
+﻿Project On Large-Scale Matrix Comp. Using MMAP on Systems With Accelerators And Co-Processors by NITW 2013 Batch Student
+
+1> Gaurav Kumar
+2> Srikanth Grande
+3> Pavani Komathi
+4> Tuhina Kumar
+
+
+About Performance Parameters:
+
+Execution on Intel Xeon (Host) = 16 cores
+    OpenMp Threads = 1/2/4/8/16
+    (Execute on 2 /4 /8 threads)
+    Problem Size  (class S) M=2^10=1024; 
+		  (class A) M=2^12=4096 
+		  (class B) M=2^13=8192
+		  (class C) M=2^14=16384
+		  (class D) M=2^15=32768
+		  (class E) M=2^16=65536
+(S=Sample Size)
+(M=1024,CS=2^i,i=0,1,2,3,.......12,)
+(Block_Of_Row = p where P divides M)
+(For Ex: For M = 1024 P = 2^i,i=0,1,2,3,.......10)
+On Xeon (Host) OpenMp Threads = 1/2/4/8/16
+On Xeon-Phi (Co-Processor) OpenMp Threads = 1,2,....,60
+
+Remarks:
+1> No OF OpenMp Threads (Q) should divide The Block_Of_Row (P) and Chunk Size(cs) should Fit in Page Size , if Possible.
+For Safe Page Size And Block Matrix Size (m/cs,n/cs) should be multiple of page size.
+Too many pages are not good choice for the Performance.
+Default Page Size is 4KB and it can be changed upto 2MB.
+2> On Xeon Phi one can use 4 Threads Per Core And Hence 240 Threads Can be used for Matrix Matirx Code.
+3> No Thread Affinity is Done On Xeon  (Host)
+4> On Xeon Phi Thread Affinity Should Be Included.
+5> The Compiler With Flags, i.e., icc -o3 -openmp -std=c99 is used on Xeon (Host)
+
+----------------------------------------------------------
+Code: Block-Row-wise Partioning of Input Matrix A and Block-Column-wise Partioning of Input Matrix B are Performed. 
+1> Given Matrix [A] of Size mxn anb Matrix [B] of Size nxk
+a Block Of Matrix [Ab]pxn and a Block Of Matrix [Bb]nxq are extracted Using Mmap. Note that Matrix [Bb]nxq is Stored as the Transpose of [Bb]qxn.
+2> In Above we Assumed That p divides m and q divides n. Hence we get (m/p,n/q) blocks in a Contiquous Order.
+ 
+
+-----------------------------------------------------------
+Repoted Timings:
+1> Total Time For The application is Reported:
+2> Sequential and OpenMp based Shared Memory parallel implementation with TurnAround time and Performance in GigaFlops is reported for Block Matrix Multiply in which Block Matrices are Obtained Through MMAP.The OpenMp Based Results  are verified with Sequential DGEMM Library with Root Mean Square Error Calculation.
+3> OpenMp based Shared Memory parallel implementation for Block Matrix Multiply is Executed on Xeon (Host) and Xeon Phi
+4> NVIDIA CUDA based  parallel implementation for Block Matrix Multiply on Multi-Core System with Kepler GPU is in Progress.
+5> OPENCL based  parallel implementation for Block Matrix Multiply on Multi-Core System with or With-Out GPU is in Progress.
+6> MPI  based  parallel implementation for Block Matrix Multiply on Multi-Core System with or With-Out GPU is in Progress.
+
+-------------------------------------------------------
+Pthreads Implementation is done.

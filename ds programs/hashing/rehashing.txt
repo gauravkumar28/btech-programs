@@ -1,0 +1,116 @@
+//Program to illustrate the Method of Rehashing
+#include<iostream.h>
+#include<stdio.h>
+const int tablesize=7;
+class hashing
+{
+private:
+	int arr[tablesize],arr1[3*tablesize],x;
+	float a;
+public:
+	hashing()
+	{
+		for(int i=0;i<tablesize;i++)
+			arr[i]=NULL;
+		for(int j=0;j<(3*tablesize);j++)
+			arr1[j]=NULL;
+	}
+	void add(int n,int p);
+	int prime();
+	void display();
+};
+int hashing::prime()
+{
+	int r=0;
+	x=2*tablesize;
+		for(int i=x;;i++)
+		{
+			for(int j=2;j<i;j++)
+			{
+				if(i%j==0)
+				{
+					r=1;
+					break;
+				}
+			}
+			if(r==0)
+			{
+				x=i;
+				break;
+			}
+			r=0;
+		}
+		return x;
+}
+void hashing::add(int n,int p)
+{
+	int y;
+	a=(float (p)/float (tablesize))*100;
+	if(a>=70)
+	{
+		x=prime();
+		y=n%x;
+		arr1[y]=n;
+	}
+	else
+	{
+		y=n%tablesize;
+		arr[y]=n;
+		x=tablesize;
+	}
+}
+void hashing::display()
+{
+	cout<<endl;
+	cout<<"THE VALUE OF THE ARRAY AFTER REHASHNG"<<endl;
+	cout<<endl;
+	if(a>=70)
+	{
+		for(int i=0;i<x;i++)
+		{
+			if(arr1[i]==NULL)
+				arr1[i]=0;
+			cout<<i<<" Element: "<<arr1[i]<<endl;
+		}
+	}
+	else
+	{
+		for(int i=0;i<tablesize;i++)
+		{
+			if(arr[i]==NULL)
+				arr[i]=0;
+			cout<<i<<" Element: "<<arr[i]<<endl;
+		}
+	}
+	cout<<endl;
+	cout<<endl;
+}
+int main()
+{
+	hashing h;
+	cout<<endl;
+	int m,n;
+	cout<<"Enter the Number of elements you want to enter: ";
+	cin>>m;
+	cout<<endl;
+	for(int i=0;i<m;i++)
+	{
+		cout<<"Enter the value: "<<i+1<< " element: ";
+		cin>>n;
+		cout<<endl;
+		h.add(n,m);
+	}
+	cout<<endl;
+	h.display();
+	return 0;
+}
+
+
+
+		
+	
+		
+	
+
+
+

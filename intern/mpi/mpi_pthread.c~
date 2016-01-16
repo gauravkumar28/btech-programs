@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<omp.h>
+#include<mpi.h>
+#include<string.h>
+#include<pthread.h>
+int Numprocs,MyRank,iam;
+void *display(void *arg)
+{
+
+
+
+printf("\n\n hello from process %d ...\n\n",MyRank);
+
+pthread_exit(NULL);
+}
+main(int argc,char *argv[])
+{
+pthread_t t1;
+MPI_Init(&argc,&argv);
+MPI_Comm_rank(MPI_COMM_WORLD,&MyRank);
+MPI_Comm_size(MPI_COMM_WORLD,&Numprocs);
+pthread_create(&t1,NULL,display,NULL);
+pthread_join(t1,NULL);
+MPI_Finalize();
+}

@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<malloc.h>
+#include<pthread.h>
+#include<stdlib.h>
+int main()
+{
+
+
+
+int *a=(int*)malloc(5*2*1024*1024);
+if(a==NULL)
+{perror("Malloc ");
+exit(1);
+}
+getchar();
+
+return 0;
+}

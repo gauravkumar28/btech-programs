@@ -1,0 +1,3 @@
+In layman term, a Socket is an end point of communication between two systems on a network. 
+To be a bit precise, a socket is a combination of IP address and port on one system. 
+So on each system a socket exists for a process interacting with the socket on other system over the network.

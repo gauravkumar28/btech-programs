@@ -1,0 +1,17 @@
+Berkely Data Base provide huge APIs for c/c++  languages to work on BIG DATA.
+It has many built in API for Many Compiler.
+1> We First Created the DataBase. 
+2> Then we inserted (key,data) pair
+3> DataBase is Stored in BTree type structure so  that we can get sequential access;
+4> using Cursur_set function we are seting the index and then accessing sequential data and then perform mat. multiplication
+5> then resultent Matrix is displayed.
+
+
+Problems  Observed:
+1> As for storing data we need (key,data) so selecting unique key was big problem. if key is not unique collision will take place.
+2> I was trying to store integer unique key but it was stored as ascii value so  key was same after multiple of 255.
+3> I request you to resolve the key related problem so can we can store and access large data  and can get good performance
+4> My code is giving current result upto Matrix Size 15x15  above that it gives Segmentation fault.So look in That also
+
+
+

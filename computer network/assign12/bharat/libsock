@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<arpa/inet.h>
+#include<sys/types.h>
+#include<netinet/in.h>
+#include<sys/socket.h>
+#include<unistd.h>
+#include<pthread.h>
+#include<poll.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/ipc.h>
+#include<fcntl.h>
+#include<sys/stat.h>
+#include<signal.h>
+#include<sys/sem.h>
+#include<poll.h>
+#include<pthread.h>
+#include<sys/select.h>
+#include<sys/un.h>
+#define SA (struct sockaddr*)
+
+void send_fd(int unfd,int fd)
+{
+struct msghdr msg={0};//clear the msghdr
+
+char buf[CMSG_SPACE(sizeof(int))];//allocate needed space
+msg.msg_control=buf;//allocate buffer to msghdr
+msg.msg_controllen=sizeof buf;//length of buffer
+char p[1]={'a'};
+
+struct iovec base;
+base.iov_base=p;
+base.iov_len=1;
+
+msg.msg_iov=&base;
+msg.msg_iovlen=1;
+
+struct cmsghdr* cmsg=CMSG_FIRSTHDR(&msg);//get first CMSG_HDR
+cmsg->cmsg_level=SOL_SOCKET;
+cmsg->cmsg_type=SCM_RIGHTS;//passing fd
+cmsg->cmsg_len=CMSG_LEN(sizeof(int));//size of one fd
+memcpy(CMSG_DATA(cmsg),&fd,sizeof fd);//copy argument fd into cmsg data
+msg.msg_controllen=cmsg->cmsg_len;//length reset for sending
+int x=sendmsg(unfd,&msg,0);//sendmsg returning 0...thus msg not being sent
+if(x<0)
+	{
+		printf("send error.\n");
+		exit(0);
+	}
+
+}
+
+
+int recv_fd(int unfd)
+{
+struct msghdr msg={0};
+char buf[CMSG_SPACE(sizeof(int))];
+msg.msg_control=buf;
+msg.msg_controllen=sizeof buf;
+
+char p[1]={'a'};
+struct iovec base;
+base.iov_base=p;
+base.iov_len=1;
+
+msg.msg_iov=&base;
+msg.msg_iovlen=1;
+
+
+int x=recvmsg(unfd,&msg,0);
+if(x<0)
+{
+printf("recvmsg error\n");
+return -1;
+}
+struct cmsghdr* cmsg=CMSG_FIRSTHDR(&msg);
+if(cmsg==NULL||cmsg->cmsg_type!=SCM_RIGHTS)
+{
+printf("Didnt recieve fd\n");
+return -1;
+}
+int passfd;
+memcpy(&passfd,CMSG_DATA(cmsg),sizeof passfd);
+printf("%d\n",passfd);
+return passfd;
+}
+
+void* service(void* x)
+{
+int p=*((int*)x);
+
+while(1)
+{
+	char buf[512]={0};
+	if(recv(p,buf,512,0)<0)
+	return;
+	send(p,buf+1,512,0);
+}
+}

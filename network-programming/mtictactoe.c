@@ -1,0 +1,169 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/sem.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include<pthread.h>
+//no of players=5
+void* func(void* m);
+void* funcn();
+void* check();
+union semun {
+ int val;
+ struct semid_ds *buf;
+ unsigned short int *array;
+ };
+ int val;
+ int game[4][4]={{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+int count[5]={0,0,0,0,0};
+int sem_id;
+pthread_mutex_t lock;
+int main()
+{
+ pthread_t tid[5];
+ pthread_t thrdid;
+ sem_id=semget(7153,16, IPC_CREAT | 666);
+ pthread_mutex_init(&lock,NULL);
+ if(sem_id==-1)
+ {
+  perror("semget error!\n");
+  exit(1);
+ }
+union semun T;
+ T.val=1;
+int i;
+ for(i=0; i<16; i++)
+ {
+  if(semctl(sem_id, i,SETVAL, T)==-1)
+  {
+   printf("semctl error!\n");
+   exit(1);
+  }
+ }
+int x,y;
+while(count[0]!=4 && count[1]!=4 && count[2]!=4 && count[3]!=4 && count[4]!=4)
+{
+printf("enter the x coordinate\n");
+scanf("%d",&x);
+printf("enter the y coordinate\n");
+scanf("%d",&y);
+game[x-1][y-1]=5;
+count[4]++;
+for(i=0;i<4;i++)
+{
+pthread_create(&tid[i],NULL,func,(void* )(i+1));
+//pthread_create(&thrdid,NULL,check,NULL);
+//printf("hey\n");
+}
+for(i=0;i<4;i++)
+pthread_join(tid[i],NULL);
+}
+}
+void* func(void* m)
+{
+int i,j;
+int id=(int)m;
+int flag=0;
+//printf("%d\n",id);
+//int a=pthread_mutex_trylock(&lock);
+//while(a==0)
+{
+//pthread_mutex_unlock(&lock);
+//a=1;
+for(i=0;i<4;i++)
+{
+for(j=0;j<4;j++)
+{
+struct sembuf tk;
+tk.sem_num=4*i+j;
+tk.sem_flg=IPC_NOWAIT;
+tk.sem_op=-1;
+int x=semop(sem_id, &tk,1);
+if(game[i][j]==0 && x==0)
+{
+count[id-1]++;
+game[i][j]=id;
+flag=1;
+break;
+}}
+if(flag==1)
+break;
+}
+}
+pthread_mutex_lock(&lock);
+for(i=0;i<4;i++)
+{
+for(j=0;j<4;j++)
+{
+printf("%d ",game[i][j]);
+}
+printf("\n");
+}
+pthread_mutex_unlock(&lock);
+//sleep(100);
+}
+void* check()
+{
+int i=0;
+int j=0;
+int temp;
+int cnt=0;
+for(i=0;i<4;i++)
+{
+temp=game[i][0];
+if(temp!=0)
+{
+cnt=0;
+for(j=1;j<4;j++)
+{
+if(temp==game[i][j])
+cnt++;
+}
+if(cnt==4)
+{
+printf("winner is %d\n",game[i][3]);
+exit(0);
+}
+}
+}
+for(i=0;i<4;i++)
+{
+temp=game[0][i];
+if(temp!=0)
+{
+cnt=0;
+for(j=0;j<4;j++)
+{
+if(temp==game[j][i])
+cnt++;
+}
+if(cnt==4)
+printf("winner is %d\n",game[3][i]);
+}
+}
+temp=game[0][0];
+if(temp!=0)
+{
+cnt=0;
+for(i=1;i<4;i++)
+{
+if(temp==game[i][i])
+cnt++;
+}
+if(cnt==4)
+printf("winner is %d\n",game[0][0]);
+}
+temp=game[0][3];
+if(temp!=0)
+{
+for(i=1;i<4;i++)
+{
+if(temp==game[i][3-i])
+cnt++;
+}
+if(cnt==4)
+printf("winner is %d\n",game[0][3]);
+}}

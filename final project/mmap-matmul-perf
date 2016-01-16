@@ -1,0 +1,25 @@
+Matrix Size = 512 X 512 ,Chunk_size = 512 , Block_of_Row = 256 ,nThreads =  1 	 GigaFlops = 0.062218	time Elepsed = 4.314434 sec 
+ Matrix Size = 512 X 512 ,Chunk_size = 512 , Block_of_Row = 256 ,nThreads =  2 	 GigaFlops = 0.076853	time Elepsed = 3.492858 sec 
+Matrix Size = 512 X 512 ,Chunk_size = 512 , Block_of_Row = 256 ,nThreads =  4 	 GigaFlops = 0.079396	time Elepsed = 3.380951 sec
+Matrix Size = 512 X 512 ,Chunk_size = 512 , Block_of_Row = 256 ,nThreads =  8 	 GigaFlops = 0.068590	time Elepsed = 3.913631 sec 
+
+Matrix Size = 1024 X 1024 ,Chunk_size = 1024 , Block_of_Row = 256 ,nThreads =  1 	 GigaFlops = 0.139358	time Elepsed = 15.409796 sec 
+ Matrix Size = 1024 X 1024 ,Chunk_size = 1024 , Block_of_Row = 256 ,nThreads =  2 	 GigaFlops = 0.180404	time Elepsed = 11.903738 sec 
+Matrix Size = 1024 X 1024 ,Chunk_size = 1024 , Block_of_Row = 256 ,nThreads =  4 	 GigaFlops = 0.216018	time Elepsed = 9.941210 sec 
+ Matrix Size = 1024 X 1024 ,Chunk_size = 1024 , Block_of_Row = 256 ,nThreads =  8 	 GigaFlops = 0.227269	time Elepsed = 9.449092 sec
+ 
+Matrix Size = 2048 X 2048 ,Chunk_size = 2048 , Block_of_Row = 256 ,nThreads =  1 	 GigaFlops = 0.198208	time Elepsed = 86.675778 sec 
+Matrix Size = 2048 X 2048 ,Chunk_size = 2048 , Block_of_Row = 256 ,nThreads =  2 	 GigaFlops = 0.294237	time Elepsed = 58.387837 sec
+Matrix Size = 2048 X 2048 ,Chunk_size = 2048 , Block_of_Row = 256 ,nThreads =  4 	 GigaFlops = 0.375474	time Elepsed = 45.755120 sec 
+Matrix Size = 2048 X 2048 ,Chunk_size = 2048 , Block_of_Row = 256 ,nThreads =  8 	 GigaFlops = 0.438206	time Elepsed = 39.204983 sec
+
+ Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 256 ,nThreads =  1 	 GigaFlops = 0.249715	time Elepsed = 550.382472 sec
+Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 256 ,nThreads =  2 	 GigaFlops = 0.399321	time Elepsed = 344.181891 sec 
+Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 256 ,nThreads =  4 	 GigaFlops = 0.585027	time Elepsed = 234.927410 sec
+Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 256 ,nThreads =  8 	 GigaFlops = 0.727995	time Elepsed = 188.791009 sec
+Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 256 ,nThreads =  16 	 GigaFlops = 0.850984	time Elepsed = 161.505825 sec
+
+ Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 1024 ,nThreads =  1 	 GigaFlops = 0.257534	time Elepsed = 533.672823 sec
+Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 1024 ,nThreads =  2 	 GigaFlops = 0.406044	time Elepsed = 338.483285 sec Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 1024 ,nThreads =  4 	 GigaFlops = 0.604648	time Elepsed = 227.304218 sec
+Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 1024 ,nThreads =  8 	 GigaFlops = 0.788442	time Elepsed = 174.317174 sec 
+ Matrix Size = 4096 X 4096 ,Chunk_size = 4096 , Block_of_Row = 1024 ,nThreads =  16 	 GigaFlops = 0.929431	time Elepsed = 147.874319 sec 
